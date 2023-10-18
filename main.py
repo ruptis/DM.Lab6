@@ -27,8 +27,11 @@ def main():
     else:
         matrix = DEFAULT_MATRIX
 
+    if args.method == 'max':
+        matrix = [[1 / x if x != 0 else 0 for x in row] for row in matrix]
+
     print_matrix(matrix)
-    linkage_matrix = linkage(squareform(matrix), method='single' if args.method == 'min' else 'complete')
+    linkage_matrix = linkage(squareform(matrix))
     dendrogram(linkage_matrix, labels=np.array(['x%d' % i for i in range(1, len(matrix) + 1)]))
     plt.show()
 
